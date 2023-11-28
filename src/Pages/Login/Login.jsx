@@ -26,11 +26,12 @@ const Login = () => {
       const password = data.password;
       const result = await loginWithPass(email, password);
       const user = result.user;
+      reset();
       console.log(user);
       toast.success("Login successful!", {
         position: "top-right",
       });
-      reset();
+
       navigate(from, { replace: true });
     } catch (error) {
       console.log("Login error", error);

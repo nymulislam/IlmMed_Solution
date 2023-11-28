@@ -9,6 +9,7 @@ import useAdmin from "../Hooks/useAdmin";
 import useUserStatus from "../Hooks/useUserStatus";
 import { toast } from "sonner";
 import Loading from "../Components/Loading/Loading";
+import { Tooltip } from "react-tooltip";
 
 const Dashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -19,19 +20,7 @@ const Dashboard = () => {
   const [isActive, isStatusLoading] = useUserStatus();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!isAdminLoading && !isStatusLoading && !isAdmin && !isActive) {
-      toast.error("Your account is not active. Contact support for assistance.", {
-        position: "top-right",
-        style: {
-          fontSize: '1rem',
-        },
-      });
-
-
-      navigate("/");
-    }
-  }, [isAdminLoading, isStatusLoading, isAdmin, isActive, navigate]);
+  console.log(isActive);
 
   const sidebarItems = isAdmin
     ? adminSidebarItems
@@ -49,9 +38,24 @@ const Dashboard = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  useEffect(() => {
+    if (!isAdminLoading && !isStatusLoading && !isAdmin && !isActive) {
+      toast.error(
+        "Your account is not active. Contact support for assistance.",
+        {
+          position: "top-right",
+          style: {
+            fontSize: "1rem",
+          },
+        }
+      );
+
+      navigate("/");
+    }
+  }, [isAdminLoading, isStatusLoading, isAdmin, isActive, navigate]);
 
   if (isAdminLoading || isStatusLoading) {
-    return <Loading />
+    return <Loading />;
   }
 
   return (
@@ -66,14 +70,25 @@ const Dashboard = () => {
       )}
       <button onClick={handleToggleSidebar}>
         {isSidebarOpen ? (
-          <IoIosArrowBack className="text-4xl" />
+          <IoIosArrowBack
+            className="text-4xl"
+            data-tooltip-id="toggle-tooltip"
+            data-tooltip-content="Close Sidebar"
+            data-tooltip-place="right"
+          />
         ) : (
-          <IoIosArrowForward className="text-4xl" />
+          <IoIosArrowForward
+            className="text-4xl"
+            data-tooltip-id="toggle-tooltip"
+            data-tooltip-content="Open Sidebar"
+            data-tooltip-place="right"
+          />
         )}
       </button>
       <div className="flex-1">
         <Outlet />
       </div>
+      <Tooltip id="toggle-tooltip" />
     </div>
   );
 };

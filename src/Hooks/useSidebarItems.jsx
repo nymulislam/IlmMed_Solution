@@ -23,7 +23,7 @@ const useSidebarItems = () => {
           to: "/dashboard/upcomingAppointments", icon: <MdOutlineUpcoming />
         },
       ];
-      
+
     return [adminSidebarItems, userSidebarItems]
 };
 

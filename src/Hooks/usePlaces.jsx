@@ -1,21 +1,27 @@
 import { useEffect, useState } from "react";
+import useAxiosPublic from "./useAxiosPublic";
 
 
 const usePlaces = () => {
   const [divisions, setDivisions] = useState([]);
   const [districts, setDistricts] = useState([]);
+  const axiosPublic = useAxiosPublic();
   
   useEffect(() => {
-    fetch("divisions.json")
-      .then((res) => res.json())
-      .then((data) => setDivisions(data));
+    axiosPublic.get("/divisions")
+      .then((res) => setDivisions(res.data))
+      .catch((error) => {
+        console.error("Error fetching divisions:", error);
+      });
 
-    fetch("districts.json")
-      .then((res) => res.json())
-      .then((data) => setDistricts(data));
-  }, []);
+    axiosPublic.get("/districts")
+      .then((res) => setDistricts(res.data))
+      .catch((error) => {
+        console.error("Error fetching districts:", error);
+      });
+  }, [axiosPublic]);
 
-    return {divisions, districts}
+  return { divisions, districts };
 };
 
 export default usePlaces;

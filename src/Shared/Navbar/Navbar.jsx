@@ -1,10 +1,14 @@
 import { Navbar } from "flowbite-react";
 import { Link } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
+import useAdmin from "../../Hooks/useAdmin";
 
 
 const Nav = () => {
   const {user, logout} = useAuth();
+  const [isAdmin] = useAdmin();
+
+  const userProfileImg = user?.photoURL || `https://ui-avatars.com/api/?${user?.email}?background=random}`
   
   const handleLogout = () => {
     logout()
@@ -82,7 +86,7 @@ const Nav = () => {
             <>
               <div className="flex items-center ml-40 gap-3">
                 {/* dashboard button */}
-                <Link to="/dashboard">
+                <Link to={ isAdmin ? "/dashboard/allUsers" : "/dashboard/testResults"}>
                   <button className="btn btn-primary btn-outline btn-sm">
                     Dashboard
                   </button>
@@ -96,7 +100,7 @@ const Nav = () => {
                     <div className="w-10 rounded-full">
                       <img
                         alt="Tailwind CSS Navbar component"
-                        src={user.photoURL}
+                        src={userProfileImg}
                       />
                     </div>
                   </label>

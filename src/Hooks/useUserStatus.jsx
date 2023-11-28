@@ -6,12 +6,14 @@ const useUserStatus = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
 
+    
     const { data: isActive, isPending: isStatusLoading } = useQuery({
         queryKey: [user?.email, 'isActive'],
         queryFn: async () => {
             const res = await axiosSecure.get(`/users/status/${user?.email}`);
-            return res.data?.status === 'active';
-        }
+            return res.data?.active;
+        },
+        staleTime: 300000,
     });
 
     return [isActive, isStatusLoading];

@@ -32,7 +32,7 @@ const Sidebar2 = ({ items }) => {
         </li>
         <li>
           <NavLink
-            to="/"
+            to="/myProfile"
             data-tooltip-id="home-tooltip"
             data-tooltip-content="My Profile"
             data-tooltip-place="right"

@@ -1,22 +1,17 @@
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
-import { RiErrorWarningFill } from "react-icons/ri";
 import { TERipple } from "tw-elements-react";
 // import "tw-elements-react/dist/css/tw-elements-react.min.css";
-import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
-const AddATest = () => {
+const UpdateForm = () => {
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
+  const test = useLoaderData();
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -40,14 +35,17 @@ const AddATest = () => {
         description: description,
       };
 
-      const serverResponse = await axiosSecure.post("/allTests", userInfo);
+      const serverResponse = await axiosSecure.put(
+        `/allTests/${test._id}`,
+        userInfo
+      );
 
-      if (serverResponse.data.insertedId) {
-        console.log("test added successfully");
+      if (serverResponse.data.modifiedCount > 0) {
+        console.log("test updated successfully");
         Swal.fire({
           position: "top-end",
           icon: "success",
-          title: "Medical Test Added Successfully",
+          title: "Medical Test Updated Successfully",
           showConfirmButton: false,
           timer: 1500,
         });
@@ -55,21 +53,21 @@ const AddATest = () => {
         navigate("/dashboard/allTests");
       }
     } catch (error) {
-      console.error("test add failed:", error.message);
+      console.error("test updated failed:", error.message);
     }
   };
 
   return (
     <>
       <Helmet>
-        <title>IlmMed Solution | Medical Test</title>
+        <title>IlmMed Solution | Test Info Update</title>
       </Helmet>
 
       <div className="mt-10 mb-14 pb-11 rounded-xl max-w-3xl mx-auto shadow-xl">
-        <div className="flex items-center rounded-t-xl bg-gradient-to-r from-[#2ecc70] to-[#3398db]">
+        <div className="flex items-center rounded-t-xl bg-gradient-to-l from-[#2ecc70] to-[#3398db]">
           <div className="px-4 py-6 text-white md:mx-6 md:p-12">
             <h4 className="text-2xl font-semibold text-[#edf1f2]">
-              Medical Test Setup: Admin Input
+              Medical Test Update: Admin Input
             </h4>
           </div>
         </div>
@@ -82,17 +80,11 @@ const AddATest = () => {
                 <span className="label-text">Test Name</span>
               </label>
               <input
-                {...register("name", { required: true })}
+                {...register("name")}
                 type="text"
-                placeholder="Type here"
+                defaultValue={test.name}
                 className="input input-sm input-success py-5 input-bordered w-full max-w-xs"
               />
-              {errors.name && (
-                <div className="text-red-600 flex items-center gap-1 mt-2 ml-1">
-                  <RiErrorWarningFill className="text-lg" />
-                  <p>Test name is required</p>
-                </div>
-              )}
             </div>
 
             {/* Test Date */}
@@ -101,16 +93,11 @@ const AddATest = () => {
                 <span className="label-text">Test Date</span>
               </label>
               <input
-                {...register("date", { required: true })}
+                {...register("date")}
                 type="date"
+                defaultValue={test.date}
                 className="input input-sm input-accent py-5 input-bordered w-full max-w-xs"
               />
-              {errors.date && (
-                <div className="text-red-600 flex items-center gap-1 mt-2 ml-1">
-                  <RiErrorWarningFill className="text-lg" />
-                  <p>Test Date is required</p>
-                </div>
-              )}
             </div>
           </div>
 
@@ -120,17 +107,11 @@ const AddATest = () => {
               <span className="label-text">Test Image Url</span>
             </label>
             <input
-              {...register("testImage", { required: true })}
+              {...register("testImage")}
               type="text"
-              placeholder="test image url"
+              defaultValue={test.testImage}
               className="input input-sm input-success py-5 input-bordered w-full"
             />
-            {errors.testImage && (
-              <div className="text-red-600 flex items-center gap-1 mt-2 ml-1">
-                <RiErrorWarningFill className="text-lg" />
-                <p>Image Url is required</p>
-              </div>
-            )}
           </div>
 
           <div className="grid grid-cols-3 gap-4">
@@ -140,7 +121,8 @@ const AddATest = () => {
                 <span className="label-text">Test Category</span>
               </label>
               <select
-                {...register("category", { required: true })}
+                {...register("category")}
+                value={test.category}
                 className="select select-sm select-success w-full text-xs max-w-xs"
               >
                 <option disabled selected value="default">
@@ -158,12 +140,6 @@ const AddATest = () => {
                 <option>Genetics</option>
                 <option>Endocrinology</option>
               </select>
-              {errors.category && (
-                <div className="text-red-600 flex items-center gap-1 mt-2 ml-1">
-                  <RiErrorWarningFill className="text-lg" />
-                  <p>Test Category is required</p>
-                </div>
-              )}
             </div>
 
             {/* Test Price */}
@@ -172,17 +148,11 @@ const AddATest = () => {
                 <span className="label-text">Test Price</span>
               </label>
               <input
-                {...register("price", { required: true })}
+                {...register("price")}
                 type="text"
-                placeholder="Type here"
+                defaultValue={test.price}
                 className="input input-accent input-sm input-bordered w-full"
               />
-              {errors.price && (
-                <div className="text-red-600 flex items-center gap-1 mt-2 ml-1">
-                  <RiErrorWarningFill className="text-lg" />
-                  <p>Test price is required</p>
-                </div>
-              )}
             </div>
 
             {/* Test Slot*/}
@@ -193,16 +163,10 @@ const AddATest = () => {
               <input
                 {...register("slot")}
                 type="number"
-                defaultValue="0"
+                defaultValue={test.slot}
                 min="0"
                 className="input input-accent input-sm input-bordered w-full"
               />
-              {errors.slot && (
-                <div className="text-red-600 flex items-center gap-1 mt-2 ml-1">
-                  <RiErrorWarningFill className="text-lg" />
-                  <p>Test slot is required</p>
-                </div>
-              )}
             </div>
           </div>
 
@@ -211,25 +175,19 @@ const AddATest = () => {
               <span className="label-text">Test Description</span>
             </label>
             <textarea
-              {...register("description", { required: true })}
+              {...register("description")}
               className="textarea textarea-bordered h-24 textarea-accent"
-              placeholder="Test description"
+              defaultValue={test.description}
             ></textarea>
-            {errors.description && (
-              <div className="text-red-600 flex items-center gap-1 mt-2 ml-1">
-                <RiErrorWarningFill className="text-lg" />
-                <p>Test description is required</p>
-              </div>
-            )}
           </div>
 
           {/* Submit button */}
           <TERipple rippleColor="light" className="w-full">
             <button
               type="submit"
-              className="block w-full rounded bg-primary px-6 pb-2 pt-2.5 text-lg font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]] bg-gradient-to-r from-[#2ecc70] to-[#3398db]"
+              className="block w-full rounded bg-primary px-6 pb-2 pt-2.5 text-lg font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]] bg-gradient-to-l from-[#2ecc70] to-[#3398db]"
             >
-              Submit
+              Update
             </button>
           </TERipple>
         </form>
@@ -238,4 +196,4 @@ const AddATest = () => {
   );
 };
 
-export default AddATest;
+export default UpdateForm;
