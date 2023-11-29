@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
+import { toast } from "sonner";
 
 const AllBanners = () => {
   const axiosSecure = useAxiosSecure();
@@ -42,6 +43,27 @@ const AllBanners = () => {
     });
   };
 
+  const handleToggleStatus = (id) => {
+    if (id) {
+      axiosSecure.patch(`/deactivatedBanners`).then(() => {
+        axiosSecure
+          .patch(`/allBanners/${id}`, { status: "active" })
+          .then((res) => {
+            console.log(res.data);
+            if (res.data.modifiedCount > 0) {
+              toast.success("Banner Status Changed Successfully!", {
+                position: "top-right",
+              });
+            }
+
+            refetch();
+          });
+      });
+    } else {
+      console.error("User ID is undefined.");
+    }
+  };
+
   return (
     <div className="max-w-4xl mx-auto">
       <Helmet>
@@ -54,8 +76,12 @@ const AllBanners = () => {
           key={banner?._id}
           className="card lg:card-side bg-base-100 shadow-xl my-10"
         >
-          <figure className="w-11/12 h-52">
-            <img src={banner?.bannerImage} alt="Album" />
+          <figure>
+            <img
+              src={banner?.bannerImage}
+              className="md:h-56 md:w-96"
+              alt="Banner Image"
+            />
           </figure>
           <div className="card-body">
             <h2 className="card-title text-[#354a5f]">{banner?.title}</h2>
@@ -74,9 +100,19 @@ const AllBanners = () => {
                 Delete
               </button>
               {banner?.status === "active" ? (
-                <button className="btn btn-primary">Deactive</button>
+                <button
+                  onClick={() => handleToggleStatus(banner._id)}
+                  className="btn btn-primary btn-sm"
+                >
+                  Deactive
+                </button>
               ) : (
-                <button className="btn btn-primary btn-sm">Active</button>
+                <button
+                  onClick={() => handleToggleStatus(banner._id)}
+                  className="btn btn-primary btn-sm"
+                >
+                  Active
+                </button>
               )}
             </div>
           </div>
