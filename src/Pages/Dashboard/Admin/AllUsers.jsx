@@ -84,7 +84,7 @@ const AllUsers = () => {
       </Helmet>
       <div className="flex items-center rounded-t-xl bg-gradient-to-r from-[#2ecc70] to-[#3398db]">
           <div className="px-4 py-6 text-white md:mx-6 md:p-12">
-            <h4 className="mb-6 text-2xl font-semibold text-[#edf1f2]">
+            <h4 className="text-2xl font-semibold text-[#edf1f2]">
               Manage All Users
             </h4>
           </div>
@@ -105,21 +105,21 @@ const AllUsers = () => {
             </thead>
             <tbody>
               {users.map((user, index) => (
-                <tr key={user._id}>
+                <tr key={user?._id}>
                   <th>{index + 1}</th>
-                  <td>{user.name}</td>
-                  <td>{user.email}</td>
+                  <td>{user?.name}</td>
+                  <td>{user?.email}</td>
                   <td>
-                    {user.role === "admin" ? (
+                    {user?.role === "admin" ? (
                       <button
-                        onClick={() => handleToggleAdmin(user._id, user.role)}
+                        onClick={() => handleToggleAdmin(user?._id, user?.role)}
                         className="btn btn-outline btn-warning btn-sm"
                       >
                         Remove Admin
                       </button>
                     ) : (
                       <button
-                        onClick={() => handleToggleAdmin(user._id, user.role)}
+                        onClick={() => handleToggleAdmin(user?._id, user?.role)}
                         className="btn btn-sm btn-outline btn-success"
                       >
                         Make Admin
@@ -127,10 +127,10 @@ const AllUsers = () => {
                     )}
                   </td>
                   <td>
-                    {user.status === "active" ? (
+                    {user?.status === "active" ? (
                       <button
                         onClick={() =>
-                          handleToggleStatus(user._id, user.status)
+                          handleToggleStatus(user?._id, user?.status)
                         }
                         className="btn btn-warning btn-sm"
                       >
@@ -139,7 +139,7 @@ const AllUsers = () => {
                     ) : (
                       <button
                         onClick={() =>
-                          handleToggleStatus(user._id, user.status)
+                          handleToggleStatus(user?._id, user?.status)
                         }
                         className="btn btn-sm btn-success"
                       >
@@ -150,7 +150,7 @@ const AllUsers = () => {
                   <td>
                     <button
                       className="btn btn-sm btn-primary btn-outline"
-                      onClick={() => handleUserInfo(user._id)}
+                      onClick={() => handleUserInfo(user?._id)}
                     >
                       See Info
                     </button>
