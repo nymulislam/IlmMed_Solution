@@ -45,7 +45,7 @@ const AllTestsPage = () => {
   });
 
   return (
-    <div className="my-12">
+    <div className="my-10 shadow-lg max-w-6xl mx-auto py-10 rounded-md">
       <Helmet>
         <title>IlmMed Solution | All Tests</title>
       </Helmet>
