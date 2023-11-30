@@ -25,3 +25,4 @@ dist-ssr
 
 # Firebase Keys
 .env
+.vercel

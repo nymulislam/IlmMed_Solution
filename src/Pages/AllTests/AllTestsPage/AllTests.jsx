@@ -1,15 +1,19 @@
+import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { TERipple } from "tw-elements-react";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "react-router-dom";
 import { DatePicker } from "react-widgets/cjs";
 import "react-widgets/styles.css";
 import React from "react";
+import useAuth from "../../../Hooks/useAuth";
+import { toast } from "sonner";
 
 const AllTestsPage = () => {
   const axiosPublic = useAxiosPublic();
   const [selectedDate, setSelectedDate] = React.useState(new Date());
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   const { data: allTests = [] } = useQuery({
     queryKey: ["allTests"],
@@ -43,6 +47,18 @@ const AllTestsPage = () => {
     const testDate = new Date(test.deadline);
     return testDate >= selectedDate;
   });
+
+  const handleDetailsClick = (testId) => {
+    if (!user) {
+      toast.error("Please log in to view test details", {
+        position: "top-right",
+      });
+
+      return navigate("/login");
+    } else {
+      navigate(`/testDetails/${testId}`);
+    }
+  };
 
   return (
     <div className="my-10 shadow-lg max-w-6xl mx-auto py-10 rounded-md">
@@ -107,14 +123,13 @@ const AllTestsPage = () => {
                 {test?.description}
               </p>
               <TERipple rippleColor="light">
-                <Link to={`/testDetails/${test?._id}`}>
-                  <button
-                    type="button"
-                    className="inline-block rounded bg-gradient-to-r from-[#2ecc70] to-[#3398db] px-6 pb-2 pt-2.5 text-sm font-semibold uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
-                  >
-                    Details
-                  </button>
-                </Link>
+                <button
+                  type="button"
+                  onClick={() => handleDetailsClick(test._id)}
+                  className="inline-block rounded bg-gradient-to-r from-[#2ecc70] to-[#3398db] px-6 pb-2 pt-2.5 text-sm font-semibold uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+                >
+                  Details
+                </button>
               </TERipple>
             </div>
           </div>

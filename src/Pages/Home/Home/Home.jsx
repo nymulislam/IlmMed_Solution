@@ -1,4 +1,5 @@
 import Banner from "../Banner/Banner";
+import Recommendation from "../Recommendation/Recommendation";
 
 
 
@@ -6,7 +7,7 @@ const Home = () => {
     return (
         <div>
             <Banner></Banner>
-            <h2 className="text-4xl">this is home.</h2>
+            <Recommendation></Recommendation>
         </div>
     );
 };

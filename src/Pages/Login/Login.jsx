@@ -1,10 +1,10 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import SmallSlider from "../../Components/Sliders/smallSlider";
 import { useForm } from "react-hook-form";
 import useAuth from "../../Hooks/useAuth";
 import { RiErrorWarningFill } from "react-icons/ri";
 import { toast } from "sonner";
 import { Helmet } from "react-helmet-async";
+import SmallSlider from "../../Components/Sliders/SmallSlider";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -47,7 +47,7 @@ const Login = () => {
         <title>IlmMed Solution | Login</title>
       </Helmet>
       <div className="bg-[#2ecc70] lg:w-[800px] w-[350px] h-screen rounded-3xl relative shadow-lg ml-8 lg:ml-20 lg:h-[720px]">
-        <SmallSlider></SmallSlider>
+        <SmallSlider />
       </div>
       <div className=" w-[350px] lg:w-[550px] ld:h-[90vh] bg-[#d6f5e3] rounded-3xl absolute top-[580px] lg:top-44 lg:right-36 z-10 shadow-lg ml-8 md:ml-0">
         <div className="card w-full max-w-sm lg:ml-20">

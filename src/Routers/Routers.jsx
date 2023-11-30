@@ -19,8 +19,8 @@ import ErrorPage from "../Layout/ErrorPage";
 import UpdateForm from "../Components/UpdateForm/UpdateForm";
 import AllTestsPage from "../Pages/AllTests/AllTestsPage/AllTests";
 import TestDetails from "../Pages/AllTests/TestDetails/TestDetails";
-import Blogs from "../Pages/Blogs/Blogs";
 import Pricing from "../Pages/Pricing/Pricing";
+import Blogs from "../Pages/Blogs/Blogs";
 
 export const router = createBrowserRouter([
   {
@@ -39,7 +39,7 @@ export const router = createBrowserRouter([
       {
         path: "/testDetails/:id",
         element: <TestDetails></TestDetails>,
-        loader: ({ params }) => fetch(`http://localhost:5000/allTests/${params.id}`),
+        loader: ({ params }) => fetch(`https://ilm-med-solution-server.vercel.app/allTests/${params.id}`),
       },
       {
         path: "/blogs",
@@ -120,7 +120,7 @@ export const router = createBrowserRouter([
             <UpdateForm></UpdateForm>
           </AdminRoute>
         ),
-        loader: ({ params }) => fetch(`http://localhost:5000/allTests/${params.id}`),
+        loader: ({ params }) => fetch(`https://ilm-med-solution-server.vercel.app/allTests/${params.id}`),
       },
 
       // user routes

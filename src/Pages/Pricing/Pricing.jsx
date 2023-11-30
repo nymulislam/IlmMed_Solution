@@ -2,8 +2,7 @@
 
 const Pricing = () => {
     return (
-        <div>
-            This is Pricing Section.
+        <div className="h-screen">
         </div>
     );
 };

@@ -19,8 +19,7 @@ const Nav = () => {
   };
 
   const userProfileImg =
-    user?.photoURL ||
-    `https://ui-avatars.com/api/?${user?.email}?background=random}`;
+    user?.photoURL
 
   const handleLogout = () => {
     logout();
