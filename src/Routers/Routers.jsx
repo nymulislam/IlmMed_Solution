@@ -17,6 +17,10 @@ import AdminRoute from "./AdminRoute/AdminRoute";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import ErrorPage from "../Layout/ErrorPage";
 import UpdateForm from "../Components/UpdateForm/UpdateForm";
+import AllTestsPage from "../Pages/AllTests/AllTestsPage/AllTests";
+import TestDetails from "../Pages/AllTests/TestDetails/TestDetails";
+import Blogs from "../Pages/Blogs/Blogs";
+import Pricing from "../Pages/Pricing/Pricing";
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +31,23 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
+      },
+      {
+        path: "/allTestsPage",
+        element: <AllTestsPage></AllTestsPage>
+      },
+      {
+        path: "/testDetails/:id",
+        element: <TestDetails></TestDetails>,
+        loader: ({ params }) => fetch(`http://localhost:5000/allTests/${params.id}`),
+      },
+      {
+        path: "/blogs",
+        element: <Blogs></Blogs>
+      },
+      {
+        path: "/pricing",
+        element: <Pricing></Pricing>
       },
       {
         path: "/register",

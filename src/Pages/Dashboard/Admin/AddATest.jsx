@@ -32,7 +32,8 @@ const AddATest = () => {
     try {
       const userInfo = {
         slot: slot,
-        date: date,
+        currentDate: new Date().toISOString().split("T")[0],
+        deadline: date,
         name: name,
         price: price,
         category: category,
@@ -95,20 +96,22 @@ const AddATest = () => {
               )}
             </div>
 
-            {/* Test Date */}
+            {/* Test Deadline Date */}
             <div className="form-control w-full max-w-xs mb-5">
               <label className="label">
-                <span className="label-text">Test Date</span>
+                <span className="label-text">Test Deadline</span>
               </label>
               <input
                 {...register("date", { required: true })}
                 type="date"
+                defaultValue={new Date().toISOString().split("T")[0]}
+                min={new Date().toISOString().split("T")[0]}
                 className="input input-sm input-accent py-5 input-bordered w-full max-w-xs"
               />
               {errors.date && (
                 <div className="text-red-600 flex items-center gap-1 mt-2 ml-1">
                   <RiErrorWarningFill className="text-lg" />
-                  <p>Test Date is required</p>
+                  <p>Test Deadline is required</p>
                 </div>
               )}
             </div>

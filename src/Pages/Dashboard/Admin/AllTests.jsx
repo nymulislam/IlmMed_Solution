@@ -65,7 +65,7 @@ const AllTests = () => {
                 <th>Name</th>
                 <th>Category</th>
                 <th>Action</th>
-                <th>See Info</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>

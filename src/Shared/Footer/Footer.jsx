@@ -6,7 +6,8 @@ const currentYear = new Date().getFullYear();
 const Footer = () => {
   return (
     <>
-      <footer className=" bg-[#d6f5e3] mt-[500px] md:mt-20 overflow-x-hidden">
+      <footer className=" bg-[#d6f5e3] mt-[500px] shadow-xl md:mt-20 overflow-x-hidden">
+        <div className="divider"></div>
         <div>
           <footer className="footer footer-center p-10 bg-[#d6f5e3] text-base-content rounded">
             <nav className="grid md:grid-flow-col gap-4 text-xl font-medium">

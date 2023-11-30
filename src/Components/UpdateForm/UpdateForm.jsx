@@ -17,7 +17,7 @@ const UpdateForm = () => {
     console.log(data);
 
     const name = data.name;
-    const date = data.date;
+    const deadline = data.date;
     const slot = data.slot;
     const price = data.price;
     const category = data.category;
@@ -27,7 +27,7 @@ const UpdateForm = () => {
     try {
       const userInfo = {
         slot: slot,
-        date: date,
+        deadline: deadline,
         name: name,
         price: price,
         category: category,
@@ -87,15 +87,16 @@ const UpdateForm = () => {
               />
             </div>
 
-            {/* Test Date */}
+            {/* Test Deadline */}
             <div className="form-control w-full max-w-xs mb-5">
               <label className="label">
-                <span className="label-text">Test Date</span>
+                <span className="label-text">Test Deadline</span>
               </label>
               <input
                 {...register("date")}
                 type="date"
-                defaultValue={test.date}
+                defaultValue={test.deadline}
+                min={new Date().toISOString().split("T")[0]}
                 className="input input-sm input-accent py-5 input-bordered w-full max-w-xs"
               />
             </div>

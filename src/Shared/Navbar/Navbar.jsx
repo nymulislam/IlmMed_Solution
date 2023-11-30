@@ -54,7 +54,7 @@ const Nav = () => {
         </svg>
       </li>
       <li>
-        <Link to="/" className="text-lg text-gray-500 hover:text-gray-550">
+        <Link to="/allTestsPage" className="text-lg text-gray-500 hover:text-[#354a5f]">
           All Tests
         </Link>
       </li>
@@ -75,7 +75,7 @@ const Nav = () => {
         </svg>
       </li>
       <li>
-        <Link to="" className="text-lg text-gray-500 hover:text-gray-550">
+        <Link to="/blogs" className="text-lg text-gray-500 hover:text-[#354a5f]">
           Blogs
         </Link>
       </li>
@@ -96,8 +96,8 @@ const Nav = () => {
         </svg>
       </li>
       <li>
-        <Link to="" className="text-lg text-gray-500 hover:text-gray-550">
-          Contact
+        <Link to="/pricing" className="text-lg text-gray-500 hover:text-[#354a5f]">
+          Pricing
         </Link>
       </li>
     </>
@@ -256,7 +256,7 @@ const Nav = () => {
                 </li>
                 <li className="mb-1">
                   <Link
-                    to="/"
+                    to="/allTestsPage"
                     className="block p-4 text-sm font-semibold text-gray-400 hover:bg-[#d6f5e3] hover:text-[#3398db] rounded"
                   >
                     All Tests
@@ -264,7 +264,7 @@ const Nav = () => {
                 </li>
                 <li className="mb-1">
                   <Link
-                    to=""
+                    to="/blogs"
                     className="block p-4 text-sm font-semibold text-gray-400 hover:bg-[#d6f5e3] hover:text-[#3398db] rounded"
                   >
                     Blogs
@@ -272,10 +272,10 @@ const Nav = () => {
                 </li>
                 <li className="mb-1">
                   <Link
-                    to=""
+                    to="/pricing"
                     className="block p-4 text-sm font-semibold text-gray-400 hover:bg-[#d6f5e3] hover:text-[#3398db] rounded"
                   >
-                    Contact
+                    Pricing
                   </Link>
                 </li>
               </ul>

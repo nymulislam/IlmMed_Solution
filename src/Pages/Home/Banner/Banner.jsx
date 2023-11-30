@@ -52,7 +52,7 @@ const Banner = () => {
                   </p>
 
                   <div className="grid gap-4">
-                    <Link to="/localAllTests">
+                    <Link to="/allTestsPage">
                       <button className="px-6 max-w-xs mx-auto text-lg btn btn-primary bg-gradient-to-r from-[#2ecc70] to-[#3398db] border-[#2ecc70] text-white hover:border-[#3398db]">
                         All Tests
                       </button>
