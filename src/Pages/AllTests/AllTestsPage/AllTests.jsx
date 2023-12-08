@@ -5,17 +5,21 @@ import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import { DatePicker } from "react-widgets/cjs";
 import "react-widgets/styles.css";
-import React from "react";
+import React, { useState } from "react";
 import useAuth from "../../../Hooks/useAuth";
 import { toast } from "sonner";
+import Loading from "../../../Components/Loading/Loading";
+
+const ITEMS_PER_PAGE = 2;
 
 const AllTestsPage = () => {
   const axiosPublic = useAxiosPublic();
   const [selectedDate, setSelectedDate] = React.useState(new Date());
+  const [currentPage, setCurrentPage] = useState(1);
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  const { data: allTests = [] } = useQuery({
+  const { data: allTests = [], isFetching } = useQuery({
     queryKey: ["allTests"],
     queryFn: async () => {
       const res = await axiosPublic.get("/allTests");
@@ -41,12 +45,16 @@ const AllTestsPage = () => {
 
   const handleDateChange = (newDate) => {
     setSelectedDate(newDate);
+    setCurrentPage(1);
   };
 
-  const filteredTests = futureTests.filter((test) => {
-    const testDate = new Date(test.deadline);
-    return testDate >= selectedDate;
-  });
+  const filteredTests = futureTests
+    .filter((test) => {
+      const testDate = new Date(test.deadline);
+      return testDate >= selectedDate;
+    })
+
+    .slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
   const handleDetailsClick = (testId) => {
     if (!user) {
@@ -60,8 +68,11 @@ const AllTestsPage = () => {
     }
   };
 
+  const totalPages = Math.ceil(futureTests.length / ITEMS_PER_PAGE);
+  
   return (
     <div className="my-10 shadow-lg max-w-6xl mx-auto py-10 rounded-md">
+      {isFetching && <Loading />}
       <Helmet>
         <title>IlmMed Solution | All Tests</title>
       </Helmet>
@@ -74,11 +85,10 @@ const AllTestsPage = () => {
           value={selectedDate}
           onChange={handleDateChange}
         />
-        ;
       </div>
 
       {/* test cards */}
-      <div className="grid grid-cols-2 gap-10 max-w-5xl mx-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-sm md:max-w-2xl lg:max-w-5xl mx-auto h-[1200px] lg:h-[550px] mt-10">
         {filteredTests.map((test) => (
           <div
             key={test._id}
@@ -91,7 +101,7 @@ const AllTestsPage = () => {
                   src={test?.testImage}
                   alt="Test Image"
                 />
-                <span className="inline-block absolute top-7 right-7 whitespace-nowrap rounded-[0.27rem] bg-[#354a5f] px-[0.55em] pb-[0.30em] pt-[0.45em] text-center align-baseline text-[1.1em] font-bold leading-none text-[#d6f5e3]">
+                <span className="inline-block absolute top-7 whitespace-nowrap rounded-[0.27rem] bg-[#354a5f] px-[0.55em] pb-[0.30em] pt-[0.45em] text-center align-baseline text-[1.1em] font-bold leading-none text-[#d6f5e3]">
                   ${test?.price}
                 </span>
                 <a href="#!">
@@ -134,6 +144,25 @@ const AllTestsPage = () => {
             </div>
           </div>
         ))}
+      </div>
+      {/* Pagination buttons */}
+      <div className="join grid grid-cols-2 max-w-xs md:max-w-md mx-auto mt-20 md:mt-16">
+        <button
+          className="join-item btn btn-outline"
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+        >
+          Previous page
+        </button>
+        <button
+          className="join-item btn btn-outline"
+          onClick={() =>
+            setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+          }
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
       </div>
     </div>
   );

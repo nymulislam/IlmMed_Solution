@@ -3,11 +3,12 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
 import { toast } from "sonner";
+import Loading from "../../../Components/Loading/Loading";
 
 const AllBanners = () => {
   const axiosSecure = useAxiosSecure();
 
-  const { data: banners = [], refetch } = useQuery({
+  const { data: banners = [], isFetching, refetch } = useQuery({
     queryKey: ["banners"],
     queryFn: async () => {
       const res = await axiosSecure.get("/allBanners");
@@ -66,6 +67,7 @@ const AllBanners = () => {
 
   return (
     <div className="max-w-4xl mx-auto">
+      {isFetching && <Loading />}
       <Helmet>
         <title>IlmMed Solution | All Banners</title>
       </Helmet>

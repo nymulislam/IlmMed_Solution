@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import "@smastrom/react-rating/style.css";
 import { FaQuoteLeft } from "react-icons/fa";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
-import { Rating } from "@smastrom/react-rating";
 
 const Recommendation = () => {
   const [reviews, setReviews] = useState([]);
@@ -22,6 +21,11 @@ const Recommendation = () => {
   
   return (
     <section className="my-20 max-w-5xl mx-auto">
+      <div className="max-w-sm md:max-w-2xl mx-auto mb-14 mt-40">
+        <h2 className="divider text-2xl md:text-3xl font-semibold text-[#354a5f] text-center">
+        Recommended for You
+        </h2>
+      </div>
       <Swiper
         cssMode={true}
         navigation={true}
@@ -35,15 +39,11 @@ const Recommendation = () => {
           <SwiperSlide key={review._id}>
             <div className="flex flex-col items-center text-center">
               <div className="mb-5">
-                <Rating
-                  style={{ maxWidth: 180 }}
-                  value={review?.rating}
-                  readOnly
-                />
+                
               </div>
-              <FaQuoteLeft className="w-20 h-24" />
-              <p className="px-32 text-lg">{review?.recommendation}</p>
-              <h2 className="text-3xl font-medium text-yellow-600 mb-10">
+              <FaQuoteLeft className="w-10 h-10 md:w-16 md:h-16 text-[#354a5f]" />
+              <p className="px-10 md:px-52 py-5 md:text-xl text-[#354a5f]">{review?.recommendation}</p>
+              <h2 className="text-2xl md:text-3xl font-semibold text-[#3398db] mb-10">
                 {review?.category}
               </h2>
             </div>

@@ -1,9 +1,11 @@
 
+import NoContent from "../../../Components/NoContent/NoContent";
+
 
 const TestResults = () => {
     return (
-        <div>
-            <h2>Test Results</h2>
+        <div className="h-screen">
+            <NoContent />
         </div>
     );
 };

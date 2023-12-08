@@ -19,7 +19,7 @@ const useSidebarItems = () => {
       const userSidebarItems = [
         { label: "Test Results", to: "/dashboard/testResults", icon: <CiMedicalClipboard /> },
         {
-          label: "Upcoming Appointments",
+          label: "Upcoming Tests",
           to: "/dashboard/upcomingAppointments", icon: <MdOutlineUpcoming />
         },
       ];

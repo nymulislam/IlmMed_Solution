@@ -3,11 +3,16 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import Loading from "../../../Components/Loading/Loading";
 
 const AllTests = () => {
   const axiosSecure = useAxiosSecure();
 
-  const { data: tests = [], refetch } = useQuery({
+  const {
+    data: tests = [],
+    isFetching,
+    refetch,
+  } = useQuery({
     queryKey: ["tests"],
     queryFn: async () => {
       const res = await axiosSecure.get("/allTests");
@@ -44,7 +49,8 @@ const AllTests = () => {
   };
 
   return (
-    <section className="shadow-xl mt-10 max-w-4xl mx-auto h-screen mb-14 rounded-xl">
+    <section className="shadow-xl mt-10 max-w-xs md:max-w-4xl mx-auto md:h-screen mb-14 rounded-xl">
+      {isFetching && <Loading />}
       <Helmet>
         <title>IlmMed Solution | All Tests</title>
       </Helmet>

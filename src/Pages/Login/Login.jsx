@@ -5,13 +5,15 @@ import { RiErrorWarningFill } from "react-icons/ri";
 import { toast } from "sonner";
 import { Helmet } from "react-helmet-async";
 import SmallSlider from "../../Components/Sliders/SmallSlider";
+import useAdmin from "../../Hooks/useAdmin";
 
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { loginWithPass } = useAuth();
+  const {isAdmin} = useAdmin()
 
-  const from = location?.state?.from?.pathname || "/dashboard";
+  const from = location?.state?.from?.pathname || ( isAdmin? "/dashboard/allUsers" : "/dashboard/myProfile");
 
   const {
     register,

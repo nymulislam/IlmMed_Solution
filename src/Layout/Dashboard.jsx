@@ -20,7 +20,6 @@ const Dashboard = () => {
   const [isActive, isStatusLoading] = useUserStatus();
   const navigate = useNavigate();
 
-  console.log(isActive);
 
   const sidebarItems = isAdmin
     ? adminSidebarItems

@@ -25,10 +25,10 @@ const Blogs = () => {
               to="/"
               className="px-4 py-1 bg-black text-gray-200 inline-flex items-center justify-center mb-2"
             >
-              Web Development
+              Health Consultancy
             </Link>
             <h2 className="text-4xl font-semibold text-gray-100 leading-tight">
-              Understanding Access Tokens and Refresh Tokens for Beginners
+            Holistic Health: A Guide to Wellness and Vitality
             </h2>
             <div className="flex mt-3">
               <img
@@ -40,16 +40,13 @@ const Blogs = () => {
                   {" "}
                   Naymul Islam{" "}
                 </p>
-                <p className="font-semibold text-gray-400 text-xs"> 08 Nov </p>
+                <p className="font-semibold text-gray-400 text-xs"> 30 Nov </p>
               </div>
             </div>
           </div>
         </div>
 
         <div className="px-4 lg:px-0 mt-12 text-gray-700 max-w-screen-md mx-auto text-lg leading-relaxed">
-          <h2 className="text-2xl text-gray-800 font-semibold mb-4 mt-4">
-            Holistic Health: A Guide to Wellness and Vitality
-          </h2>
           <p className="pb-6">
             In today&apos;s fast-paced world, maintaining optimal health is more
             crucial than ever. The choices we make in our daily lives

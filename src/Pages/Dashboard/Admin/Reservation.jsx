@@ -1,9 +1,10 @@
+import NoContent from "../../../Components/NoContent/NoContent";
 
 
 const Reservation = () => {
     return (
-        <div>
-            <h2>Reservation</h2>
+        <div className="h-screen">
+            <NoContent />
         </div>
     );
 };

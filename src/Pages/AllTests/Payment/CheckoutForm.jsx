@@ -13,14 +13,14 @@ const CheckoutForm = ({ testDetails }) => {
   const [processingPayment, setProcessingPayment] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
-  const axiosSecure = useAxiosSecure();
   const { price } = testDetails;
   const { user } = useAuth();
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
 
   useEffect(() => {
-
-    const adjustedPrice = discount > 0 ? (price - (price * discount) / 100) : price;
+    const adjustedPrice =
+      discount > 0 ? price - (price * discount) / 100 : price;
     axiosSecure.post("/testPayment", { price: adjustedPrice }).then((res) => {
       console.log(res.data.clientSecret);
       setClientSecret(res.data.clientSecret);
@@ -53,7 +53,6 @@ const CheckoutForm = ({ testDetails }) => {
 
     setProcessingPayment(true);
 
-
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
       card,
@@ -75,13 +74,62 @@ const CheckoutForm = ({ testDetails }) => {
               name: user.displayName || "anonymous",
             },
           },
-
         });
       if (confirmError) {
         console.log("Error confirming payment:", confirmError);
       } else {
         console.log("Payment confirmed:", paymentIntent);
         if (paymentIntent.status === "succeeded") {
+          // reduce slot after payment succeed
+          const updateSlotResponse = await axiosSecure.put(
+            `/allTests/${testDetails._id}`,
+            {
+              slot: testDetails.slot - 1,
+              name: testDetails.name,
+              deadline: testDetails.deadline,
+              testImage: testDetails.testImage,
+              description: testDetails.description,
+              category: testDetails.category,
+              price: testDetails.price,
+            }
+          );
+
+          if (updateSlotResponse.data.modifiedCount > 0) {
+            console.log("Slot updated successfully");
+          }
+
+          try {
+            const bookingInfo = {
+              name: testDetails.name,
+              deadline: testDetails.deadline,
+              testImage: testDetails.testImage,
+              description: testDetails.description,
+              category: testDetails.category,
+              price: testDetails.price,
+              email: user.email,
+              _id: testDetails._id,
+              status: 'pending',
+            };
+
+            console.log("Booking Info:", bookingInfo);
+
+
+            // booking info post on server
+            const serverResponse = await axiosSecure.post(
+              "/allBookings",
+              bookingInfo
+            );
+
+            if (serverResponse.data.insertedId) {
+              console.log("Booking info has been added successfully");
+            } else {
+              console.error("Error adding booking info:", serverResponse.data.error);
+            }
+
+          } catch (error) {
+            console.error("Booking Info not Saved:", error);
+          }
+
           Swal.fire({
             position: "top-end",
             icon: "success",
@@ -89,6 +137,7 @@ const CheckoutForm = ({ testDetails }) => {
             showConfirmButton: false,
             timer: 2000,
           });
+
           navigate("/");
         }
       }

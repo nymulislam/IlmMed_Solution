@@ -10,7 +10,6 @@ import {
 import app from "../Firebase/Firebase.config";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 
-
 const auth = getAuth(app);
 
 export const AuthContext = createContext(null);
@@ -18,20 +17,23 @@ export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  
-  const axiosPublic = useAxiosPublic()
+
+  const axiosPublic = useAxiosPublic();
 
   // create user
   const createUser = async (email, password, displayName, photoURL) => {
     setLoading(true);
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
 
-      await updateProfile(userCredential.user, {displayName, photoURL});
+      await updateProfile(userCredential.user, { displayName, photoURL });
 
       setUser(userCredential.user);
       return userCredential.user;
-      
     } catch (error) {
       setLoading(false);
       throw error;
@@ -52,21 +54,31 @@ const AuthProvider = ({ children }) => {
 
   // user observe
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
+
+
       if (currentUser) {
-        const userInfo = { email: currentUser.email };
-        axiosPublic.post("/jwt", userInfo).then((res) => {
+        const userInfo = { email: currentUser?.email };
+
+        try {
+          const res = await axiosPublic.post("/jwt", userInfo);
+
           if (res.data.token) {
             localStorage.setItem("access_token", res.data.token);
           }
-        });
+        } catch (error) {
+          console.error("Error fetching JWT token:", error);
+        }
       } else {
         localStorage.removeItem("access_token");
       }
       setLoading(false);
     });
+
     return () => {
+
+      
       return unsubscribe();
     };
   }, [axiosPublic]);
@@ -76,7 +88,7 @@ const AuthProvider = ({ children }) => {
     createUser,
     loading,
     logout,
-    user
+    user,
   };
 
   return (

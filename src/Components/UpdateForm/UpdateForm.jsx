@@ -95,7 +95,7 @@ const UpdateForm = () => {
               <input
                 {...register("date")}
                 type="date"
-                defaultValue={test.deadline}
+                value={test.deadline}
                 min={new Date().toISOString().split("T")[0]}
                 className="input input-sm input-accent py-5 input-bordered w-full max-w-xs"
               />

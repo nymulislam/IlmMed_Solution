@@ -6,7 +6,7 @@ const currentYear = new Date().getFullYear();
 const Footer = () => {
   return (
     <>
-      <footer className=" bg-[#d6f5e3] mt-[500px] shadow-xl md:mt-20 overflow-x-hidden">
+      <footer className=" bg-[#d6f5e3] shadow-xl mt-0 md:mt-20 overflow-x-hidden">
         <div className="divider"></div>
         <div>
           <footer className="footer footer-center p-10 bg-[#d6f5e3] text-base-content rounded">

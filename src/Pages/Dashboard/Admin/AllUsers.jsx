@@ -3,11 +3,12 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
 import { toast } from "sonner";
+import Loading from "../../../Components/Loading/Loading";
 
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
 
-  const { data: users = [], refetch } = useQuery({
+  const { data: users = [], isFetching, refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
       const res = await axiosSecure.get("/users");
@@ -86,9 +87,10 @@ const AllUsers = () => {
       });
     });
   };
-
+  
   return (
-    <section className="shadow-xl mt-10 max-w-4xl mx-auto h-screen mb-14 rounded-xl">
+    <section className="shadow-xl mt-10 max-w-sm md:max-w-4xl mx-auto h-screen mb-14 rounded-xl">
+      { isFetching && <Loading />}
       <Helmet>
         <title>IlmMed Solution | All Users</title>
       </Helmet>
