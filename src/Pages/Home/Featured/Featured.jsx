@@ -11,6 +11,7 @@ import { TERipple } from "tw-elements-react";
 import useAuth from "../../../Hooks/useAuth";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import Button from "../../../Components/Button/Button";
 
 const Featured = () => {
   const axiosPublic = useAxiosPublic();
@@ -38,7 +39,7 @@ const Featured = () => {
   };
 
   return (
-    <div className="my-20 shadow-lg">
+    <div className="my-20">
       <div className="max-w-sm md:max-w-2xl mx-auto mt-40 mb-20">
         <h2 className="divider text-2xl md:text-3xl font-semibold text-[#354a5f] text-center">
           Explore Our Top Picks
@@ -73,13 +74,13 @@ const Featured = () => {
                 className="block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700"
               >
                 <TERipple rippleColor="light">
-                  <div className="relative overflow-hidden bg-cover bg-no-repeat">
+                  <div className="relative overflow-hidden bg-cover bg-no-repeat rounded-lg">
                     <img
-                      className="rounded-t-lg h-64"
+                      className="p-5 h-64 rounded-3xl "
                       src={test?.testImage}
                       alt="Test Image"
                     />
-                    <span className="inline-block absolute top-5 whitespace-nowrap rounded-[0.27rem] bg-[#354a5f] px-[0.55em] pb-[0.30em] pt-[0.45em] text-center align-baseline text-[1.1em] font-bold leading-none text-[#d6f5e3]">
+                    <span className="inline-block absolute left-5 top-8 whitespace-nowrap rounded-[0.27rem] bg-[#354a5f] px-[0.55em] pb-[0.30em] pt-[0.45em] text-center align-baseline text-[1.1em] font-bold leading-none text-[#d6f5e3]">
                       ${test?.price}
                     </span>
                     <a href="#!">
@@ -90,7 +91,9 @@ const Featured = () => {
                 <div className="p-6">
                   <div className="flex justify-between items-center">
                     <h5 className="mb-2 text-lg font-semibold leading-tight text-[#354a5f] dark:text-neutral-50">
-                      {test?.name.length > 17 ? `${test?.name.substring(0, 17)}...` : `${test?.name}`}
+                      {test?.name.length > 17
+                        ? `${test?.name.substring(0, 17)}...`
+                        : `${test?.name}`}
                     </h5>
                     <span className="badge text-white font-medium pt-1 pb-1 bg-[#354a5f]">
                       {test?.category}
@@ -102,13 +105,13 @@ const Featured = () => {
                       : test?.description}
                   </p>
                   <TERipple rippleColor="light">
-                    <button
+                    <Button
                       type="button"
+                      className="px-4 py-2 pt-2.5 bg-gradient-to-r from-[#2ecc70] to-[#3398db] text-sm font-semibold text-white"
                       onClick={() => handleDetailsClick(test._id)}
-                      className="inline-block rounded bg-gradient-to-r from-[#2ecc70] to-[#3398db] px-6 pb-2 pt-2.5 text-sm font-semibold uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
                     >
                       Details
-                    </button>
+                    </Button>
                   </TERipple>
                 </div>
               </div>

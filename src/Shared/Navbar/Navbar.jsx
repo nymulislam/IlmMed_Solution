@@ -105,8 +105,8 @@ const Nav = () => {
   return (
     <>
       {/* start nav */}
-      <div className="">
-        <nav className="relative px-4 py-4 flex shadow-xl justify-between items-center bg-[#d6f5e3]">
+      <div>
+        <nav className="relative px-4 py-4 flex shadow-md justify-between items-center bg-[#d6f5e3]">
           <Link className="text-3xl font-bold leading-none py-2" to="/">
             <h2 className="bg-gradient-to-r from-[#2ecc70] to-[#3398db] bg-clip-text text-transparent">
               IlmMed Solution

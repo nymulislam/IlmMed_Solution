@@ -20,7 +20,7 @@ const Recommendation = () => {
   }, [axiosPublic]);
   
   return (
-    <section className="my-20 max-w-5xl mx-auto">
+    <section className="my-40 max-w-5xl mx-auto">
       <div className="max-w-sm md:max-w-2xl mx-auto mb-14 mt-40">
         <h2 className="divider text-2xl md:text-3xl font-semibold text-[#354a5f] text-center">
         Recommended for You

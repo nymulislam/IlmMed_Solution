@@ -9,6 +9,7 @@ import React, { useState } from "react";
 import useAuth from "../../../Hooks/useAuth";
 import { toast } from "sonner";
 import Loading from "../../../Components/Loading/Loading";
+import Button from "../../../Components/Button/Button";
 
 const ITEMS_PER_PAGE = 2;
 
@@ -69,9 +70,9 @@ const AllTestsPage = () => {
   };
 
   const totalPages = Math.ceil(futureTests.length / ITEMS_PER_PAGE);
-  
+
   return (
-    <div className="my-10 shadow-lg max-w-6xl mx-auto py-10 rounded-md">
+    <div className="my-10 max-w-6xl mx-auto py-10 rounded-md">
       {isFetching && <Loading />}
       <Helmet>
         <title>IlmMed Solution | All Tests</title>
@@ -95,13 +96,13 @@ const AllTestsPage = () => {
             className="block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700"
           >
             <TERipple rippleColor="light">
-              <div className="relative overflow-hidden bg-cover bg-no-repeat h-80">
+              <div className="relative overflow-hidden h-80">
                 <img
-                  className="rounded-t-lg"
+                  className="p-5 rounded-3xl"
                   src={test?.testImage}
                   alt="Test Image"
                 />
-                <span className="inline-block absolute top-7 whitespace-nowrap rounded-[0.27rem] bg-[#354a5f] px-[0.55em] pb-[0.30em] pt-[0.45em] text-center align-baseline text-[1.1em] font-bold leading-none text-[#d6f5e3]">
+                <span className="inline-block absolute top-9 left-5 whitespace-nowrap rounded-[0.27rem] bg-[#354a5f] px-[0.55em] pb-[0.30em] pt-[0.45em] text-center align-baseline text-[1.1em] font-bold leading-none text-[#d6f5e3]">
                   ${test?.price}
                 </span>
                 <a href="#!">
@@ -133,13 +134,13 @@ const AllTestsPage = () => {
                 {test?.description}
               </p>
               <TERipple rippleColor="light">
-                <button
+                <Button
                   type="button"
+                  className="px-4 py-2 pt-2.5 bg-gradient-to-r from-[#2ecc70] to-[#3398db] text-sm font-semibold text-white"
                   onClick={() => handleDetailsClick(test._id)}
-                  className="inline-block rounded bg-gradient-to-r from-[#2ecc70] to-[#3398db] px-6 pb-2 pt-2.5 text-sm font-semibold uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
                 >
                   Details
-                </button>
+                </Button>
               </TERipple>
             </div>
           </div>

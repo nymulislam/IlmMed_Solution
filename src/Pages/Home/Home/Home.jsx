@@ -7,7 +7,7 @@ import Recommendation from "../Recommendation/Recommendation";
 
 const Home = () => {
     return (
-        <div className="h-[2250px]">
+        <div>
             <Banner></Banner>
             <Featured></Featured>
             <Promotions></Promotions>

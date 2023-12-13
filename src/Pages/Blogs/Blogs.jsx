@@ -18,7 +18,7 @@ const Blogs = () => {
           ></div>
           <img
             src="https://i.postimg.cc/MKG79c6C/medical-Report.png"
-            className="left-0 top-0 w-full z-0 object-cover"
+            className="left-0 top-0 w-full z-0 object-cover rounded-lg"
           />
           <div className="p-4 absolute bottom-0 left-0 z-20">
             <Link
@@ -32,7 +32,7 @@ const Blogs = () => {
             </h2>
             <div className="flex mt-3">
               <img
-                src="https://randomuser.me/api/portraits/men/97.jpg"
+                src="https://i.postimg.cc/zXXzQqnJ/DSC-0015-2.jpg"
                 className="h-10 w-10 rounded-full mr-2 object-cover"
               />
               <div>
