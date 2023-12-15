@@ -17,23 +17,24 @@ const Dashboard = () => {
   const [adminSidebarItems2, userSidebarItems2] = useSidebarItems2();
 
   const [isAdmin, isAdminLoading] = useAdmin();
-  console.log("🚀 ~ file: Dashboard.jsx:20 ~ Dashboard ~ isAdmin:", isAdmin)
+  console.log("🚀 ~ file: Dashboard.jsx:20 ~ Dashboard ~ isAdmin:", isAdmin);
   const [isActive, isStatusLoading] = useUserStatus();
-  console.log("🚀 ~ file: Dashboard.jsx:22 ~ Dashboard ~ isActive:", isActive)
+  console.log("🚀 ~ file: Dashboard.jsx:22 ~ Dashboard ~ isActive:", isActive);
   const navigate = useNavigate();
 
+  let sidebarItems;
+  let sidebarItems2;
 
-  const sidebarItems = isAdmin
-    ? adminSidebarItems
-    : isActive
-    ? userSidebarItems
-    : [];
-
-  const sidebarItems2 = isAdmin
-    ? adminSidebarItems2
-    : isActive
-    ? userSidebarItems2
-    : [];
+  if (isAdmin) {
+    sidebarItems = adminSidebarItems;
+    sidebarItems2 = adminSidebarItems2;
+  } else if (isActive) {
+    sidebarItems = userSidebarItems;
+    sidebarItems2 = userSidebarItems2;
+  } else {
+    sidebarItems = [];
+    sidebarItems2 = [];
+  }
 
   const handleToggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);

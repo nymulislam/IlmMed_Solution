@@ -12,8 +12,7 @@ const useUserStatus = () => {
         queryFn: async () => {
             const res = await axiosSecure.get(`/users/status/${user?.email}`);
             return res.data?.active;
-        },
-        staleTime: 300000,
+        }
         
     });
     console.log("🚀 ~ file: useUserStatus.jsx:19 ~ useUserStatus ~ isActive:", isActive)
