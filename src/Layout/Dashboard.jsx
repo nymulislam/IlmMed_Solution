@@ -17,7 +17,9 @@ const Dashboard = () => {
   const [adminSidebarItems2, userSidebarItems2] = useSidebarItems2();
 
   const [isAdmin, isAdminLoading] = useAdmin();
+  console.log("🚀 ~ file: Dashboard.jsx:20 ~ Dashboard ~ isAdmin:", isAdmin)
   const [isActive, isStatusLoading] = useUserStatus();
+  console.log("🚀 ~ file: Dashboard.jsx:22 ~ Dashboard ~ isActive:", isActive)
   const navigate = useNavigate();
 
 

@@ -8,6 +8,8 @@ const AdminRoute = ({ children }) => {
   const [isAdmin, isAdminLoading] = useAdmin();
   const location = useLocation();
 
+  
+
   if (loading || isAdminLoading) {
     return <Loading></Loading>;
   }

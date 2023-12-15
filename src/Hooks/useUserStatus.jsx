@@ -16,6 +16,7 @@ const useUserStatus = () => {
         staleTime: 300000,
         
     });
+    console.log("🚀 ~ file: useUserStatus.jsx:19 ~ useUserStatus ~ isActive:", isActive)
     return [isActive, isStatusLoading];
 };
 

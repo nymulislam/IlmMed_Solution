@@ -14,7 +14,6 @@ const Promotions = () => {
     queryKey: ["promotions"],
     queryFn: async () => {
       const res = await axiosPublic.get("/promotions");
-      console.log(res.data);
       return res.data;
     },
   });

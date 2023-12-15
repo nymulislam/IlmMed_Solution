@@ -147,7 +147,7 @@ const AllTestsPage = () => {
         ))}
       </div>
       {/* Pagination buttons */}
-      <div className="join grid grid-cols-2 max-w-xs md:max-w-md mx-auto mt-20 md:mt-16">
+      <div className="join grid grid-cols-2 max-w-xs md:max-w-md mx-auto mt-32 md:mt-16">
         <button
           className="join-item btn btn-outline"
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
